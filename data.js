@@ -1,4 +1,4 @@
-/* 关卡数据：三年级上册 · 数学 + 语文 */
+/* 关卡数据：二年级上册 · 数学 + 语文 */
 window.GameData = (function () {
   'use strict';
 
@@ -8,7 +8,7 @@ window.GameData = (function () {
     {
       id: 'math',
       name: '数学',
-      subtitle: '三年级上册',
+      subtitle: '二年级上册',
       color: '#4A9BF5',
       colorLight: '#D6F1FF',
       emoji: '🔢',
@@ -17,7 +17,7 @@ window.GameData = (function () {
     {
       id: 'chinese',
       name: '语文',
-      subtitle: '三年级上册',
+      subtitle: '二年级上册',
       color: '#E8765C',
       colorLight: '#FFE4D6',
       emoji: '📖',
@@ -29,17 +29,17 @@ window.GameData = (function () {
 
   var MATH_CHAPTERS = [
     {
-      id: 'm1', subject: 'math', name: '时、分、秒',
-      concept: '时间单位换算与计算',
+      id: 'm1', subject: 'math', name: '认识时间',
+      concept: '时和分的认识 · 1时=60分',
       levels: [
         {
-          id: 'm1-1', name: '秒针小怪', concept: '认识秒 · 1分=60秒',
+          id: 'm1-1', name: '分针小怪', concept: '5分5分地数 · 认读时间',
           monsters: 3, hp: 2, time: 14, mode: 'time_conv', boss: false,
-          names: ['滴答怪', '秒针怪', '闹钟怪'],
+          names: ['滴答怪', '分针怪', '闹钟怪'],
           colors: ['#63D6A6', '#4CB8A0', '#7BC96F']
         },
         {
-          id: 'm1-2', name: '时间换算', concept: '时、分、秒互换',
+          id: 'm1-2', name: '整时换算', concept: '1时=60分 · 求经过的时间',
           monsters: 3, hp: 2, time: 12, mode: 'time_calc', boss: false,
           names: ['沙漏怪', '钟表怪', '时光怪'],
           colors: ['#5BC7F5', '#4A9BF5', '#7AB6F5']
@@ -47,107 +47,107 @@ window.GameData = (function () {
       ]
     },
     {
-      id: 'm2', subject: 'math', name: '万以内的加法',
-      concept: '两位数加两位数 · 几百几十加几百几十',
+      id: 'm2', subject: 'math', name: '100以内的加法',
+      concept: '两位数加一位数 · 两位数加两位数',
       levels: [
         {
-          id: 'm2-1', name: '加法小兵', concept: '两位数加两位数（口算）',
+          id: 'm2-1', name: '加法小兵', concept: '不进位加法（口算）',
           monsters: 3, hp: 2, time: 12, mode: 'add_easy', boss: false,
-          names: ['加号兵', '数字兵', '进位兵'],
+          names: ['加号兵', '数字兵', '十位兵'],
           colors: ['#FFB74D', '#FFA726', '#FFCC80']
         },
         {
-          id: 'm2-2', name: '进位将军', concept: '几百几十加几百几十（进位）',
+          id: 'm2-2', name: '进位将军', concept: '进位加法（个位满十进一）',
           monsters: 3, hp: 2, time: 14, mode: 'add_hard', boss: false,
-          names: ['百位将', '千位将', '进位王'],
+          names: ['进位将', '满十将', '进位王'],
           colors: ['#FF8A65', '#F0715C', '#FFAB91']
         }
       ]
     },
     {
-      id: 'm3', subject: 'math', name: '测量',
-      concept: '毫米、分米、千米、吨的认识',
+      id: 'm3', subject: 'math', name: '长度单位',
+      concept: '厘米和米的认识 · 量一量',
       levels: [
         {
-          id: 'm3-1', name: '长度精灵', concept: '毫米、厘米、分米、米',
+          id: 'm3-1', name: '厘米精灵', concept: '认识厘米 · 用尺子量长度',
           monsters: 3, hp: 2, time: 14, mode: 'length_unit', boss: false,
-          names: ['毫米精', '厘米精', '分米精'],
+          names: ['厘米精', '尺子精', '线段精'],
           colors: ['#81C784', '#66BB6A', '#A5D6A7']
         },
         {
-          id: 'm3-2', name: '千米巨兽', concept: '千米的认识 · 1千米=1000米',
+          id: 'm3-2', name: '米尺巨兽', concept: '认识米 · 1米=100厘米',
           monsters: 3, hp: 2, time: 14, mode: 'km_unit', boss: false,
-          names: ['千米兽', '里程兽', '长途兽'],
+          names: ['米尺兽', '身高兽', '教室兽'],
           colors: ['#7986CB', '#5C6BC0', '#9FA8DA']
         },
         {
-          id: 'm3-3', name: '吨级霸王龙', concept: '吨的认识 · 1吨=1000千克',
+          id: 'm3-3', name: '长度霸王龙', concept: '长度单位综合 · 比大小',
           monsters: 1, hp: 3, time: 14, mode: 'ton_unit', boss: true,
-          names: ['吨级霸王龙'],
+          names: ['长度霸王龙'],
           colors: ['#8D6E63']
         }
       ]
     },
     {
-      id: 'm4', subject: 'math', name: '万以内的减法',
-      concept: '退位减法 · 验算',
+      id: 'm4', subject: 'math', name: '100以内的减法',
+      concept: '两位数减一位数 · 退位减法',
       levels: [
         {
-          id: 'm4-1', name: '减法小兵', concept: '两位数减两位数（口算）',
+          id: 'm4-1', name: '减法小兵', concept: '不退位减法（口算）',
           monsters: 3, hp: 2, time: 12, mode: 'sub_easy', boss: false,
-          names: ['减号兵', '退号兵', '借位兵'],
+          names: ['减号兵', '差号兵', '十位兵'],
           colors: ['#4DB6AC', '#26A69A', '#80CBC4']
         },
         {
-          id: 'm4-2', name: '退位法师', concept: '几百几十减几百几十（退位）',
+          id: 'm4-2', name: '退位法师', concept: '退位减法（个位不够减）',
           monsters: 3, hp: 2, time: 14, mode: 'sub_hard', boss: false,
-          names: ['退法师', '借位师', '验算师'],
+          names: ['退法师', '借十师', '验算师'],
           colors: ['#BA68C8', '#9C27B0', '#CE93D8']
         }
       ]
     },
     {
-      id: 'm5', subject: 'math', name: '倍的认识',
-      concept: '求一个数是另一个数的几倍 · 求一个数的几倍是多少',
+      id: 'm5', subject: 'math', name: '表内乘法（一）',
+      concept: '2~6的乘法口诀',
       levels: [
         {
-          id: 'm5-1', name: '倍数小妖', concept: '求一个数是另一个数的几倍',
+          id: 'm5-1', name: '口诀小妖', concept: '2、3、4的乘法口诀',
           monsters: 3, hp: 2, time: 14, mode: 'times_div', boss: false,
-          names: ['倍数妖', '翻倍妖', '几倍妖'],
+          names: ['口诀妖', '二三妖', '四六妖'],
           colors: ['#FFB300', '#FF8F00', '#FFD54F']
         },
         {
-          id: 'm5-2', name: '几倍魔王', concept: '求一个数的几倍是多少',
+          id: 'm5-2', name: '口诀魔王', concept: '5、6的乘法口诀',
           monsters: 1, hp: 4, time: 12, mode: 'times_mul', boss: true,
-          names: ['几倍魔王'],
+          names: ['口诀魔王'],
           colors: ['#FF6F00']
         }
       ]
     },
     {
-      id: 'm6', subject: 'math', name: '多位数乘一位数',
-      concept: '口算乘法 · 笔算乘法',
+      id: 'm6', subject: 'math', name: '表内乘法（二）',
+      concept: '7、8、9的乘法口诀',
       levels: [
         {
-          id: 'm6-1', name: '口诀小怪', concept: '整十整百乘一位数（口算）',
+          id: 'm6-1', name: '七巧小怪', concept: '7的乘法口诀',
           monsters: 3, hp: 2, time: 12, mode: 'mul_ten', boss: false,
-          names: ['整十怪', '整百怪', '口算怪'],
+          names: ['七巧怪', '一周怪', '口诀怪'],
           colors: ['#7BC96F', '#5FBF9A', '#8ED15C']
         },
         {
-          id: 'm6-2', name: '乘法树精', concept: '两三位数乘一位数（不进位）',
+          id: 'm6-2', name: '八音树精', concept: '8的乘法口诀',
           monsters: 3, hp: 2, time: 14, mode: 'mul_nocarry', boss: false,
-          names: ['树精怪', '藤蔓怪', '紫牙怪'],
+          names: ['八音树精', '藤蔓怪', '紫牙怪'],
           colors: ['#B58BE8', '#9B7BE0', '#C79AF0']
         },
         {
-          id: 'm6-3', name: '进位骑士', concept: '两三位数乘一位数（进位）',
+          id: 'm6-3', name: '九宫骑士', concept: '9的乘法口诀',
           monsters: 3, hp: 3, time: 15, mode: 'mul_carry', boss: false,
-          names: ['进位骑', '连续骑', '叠进骑'],
+          names: ['九宫骑', '九九骑', '口诀骑'],
           colors: ['#FF7043', '#F4511E', '#FF8A65']
         },
         {
-          id: 'm6-4', name: '乘法大魔王', concept: '多位数乘一位数综合',
+          id: 'm6-4', name: '乘法大魔王', concept: '表内乘法综合 · 乘加乘减',
           monsters: 1, hp: 5, time: 14, mode: 'mul_boss', boss: true,
           names: ['乘法大魔王'],
           colors: ['#D32F2F']
@@ -155,43 +155,43 @@ window.GameData = (function () {
       ]
     },
     {
-      id: 'm7', subject: 'math', name: '长方形和正方形',
-      concept: '四边形认识 · 周长计算',
+      id: 'm7', subject: 'math', name: '角的初步认识',
+      concept: '认识角 · 直角、锐角和钝角',
       levels: [
         {
-          id: 'm7-1', name: '四边形精灵', concept: '认识四边形 · 长方形正方形特征',
+          id: 'm7-1', name: '角精灵', concept: '认识角 · 角的各部分',
           monsters: 3, hp: 2, time: 14, mode: 'shape_know', boss: false,
-          names: ['方形精', '长方精', '正方精'],
+          names: ['角精灵', '顶点精', '边精'],
           colors: ['#29B6F6', '#039BE5', '#4FC3F7']
         },
         {
-          id: 'm7-2', name: '周长守卫', concept: '长方形和正方形的周长',
+          id: 'm7-2', name: '直角守卫', concept: '直角、锐角和钝角',
           monsters: 3, hp: 2, time: 16, mode: 'perimeter', boss: false,
-          names: ['周长卫', '边长卫', '围墙卫'],
+          names: ['直角卫', '锐角卫', '钝角卫'],
           colors: ['#26A69A', '#00897B', '#4DB6AC']
         }
       ]
     },
     {
-      id: 'm8', subject: 'math', name: '分数的初步认识',
-      concept: '几分之一 · 几分之几 · 简单计算',
+      id: 'm8', subject: 'math', name: '数学广角 · 搭配（一）',
+      concept: '简单的排列和组合',
       levels: [
         {
-          id: 'm8-1', name: '分数小妖', concept: '认识几分之一',
+          id: 'm8-1', name: '搭配小妖', concept: '排列 · 用数字组两位数',
           monsters: 3, hp: 2, time: 14, mode: 'frac_half', boss: false,
-          names: ['半分妖', '三分之一妖', '四分之一妖'],
+          names: ['排列妖', '组数妖', '两位数妖'],
           colors: ['#EC407A', '#D81B60', '#F48FB1']
         },
         {
-          id: 'm8-2', name: '分数魔法师', concept: '几分之几 · 简单加减',
+          id: 'm8-2', name: '组合怪', concept: '组合 · 衣服搭配',
           monsters: 3, hp: 2, time: 16, mode: 'frac_calc', boss: false,
-          names: ['分魔法师', '分子师', '分母师'],
+          names: ['搭配怪', '上衣怪', '裤子怪'],
           colors: ['#7E57C2', '#5E35B1', '#B39DDB']
         },
         {
-          id: 'm8-3', name: '分数终结者', concept: '分数综合 · 比大小',
+          id: 'm8-3', name: '搭配魔王', concept: '排列组合综合',
           monsters: 1, hp: 4, time: 14, mode: 'frac_boss', boss: true,
-          names: ['分数终结者'],
+          names: ['搭配魔王'],
           colors: ['#5E35B1']
         }
       ]
@@ -203,7 +203,7 @@ window.GameData = (function () {
   var CHINESE_CHAPTERS = [
     {
       id: 'c1', subject: 'chinese', name: '生字天地',
-      concept: '看拼音写汉字 · 生字认写',
+      concept: '看拼音选汉字 · 生字认读',
       levels: [
         {
           id: 'c1-1', name: '拼音精灵', concept: '看拼音选汉字（一单元）',
@@ -230,7 +230,7 @@ window.GameData = (function () {
     },
     {
       id: 'c2', subject: 'chinese', name: '词语乐园',
-      concept: '近义词 · 反义词 · 词语搭配',
+      concept: '近义词 · 反义词',
       levels: [
         {
           id: 'c2-1', name: '近义小妖', concept: '找近义词',
@@ -271,7 +271,7 @@ window.GameData = (function () {
         {
           id: 'c4-1', name: '古诗卫士', concept: '古诗下一句',
           monsters: 3, hp: 2, time: 16, mode: 'poem_next', boss: false,
-          names: ['唐诗卫', '宋词卫', '名句卫'],
+          names: ['唐诗卫', '古诗卫', '名句卫'],
           colors: ['#8D6E63', '#6D4C41', '#BCAAA4']
         },
         {
@@ -284,19 +284,19 @@ window.GameData = (function () {
     },
     {
       id: 'c5', subject: 'chinese', name: '成语秘境',
-      concept: '四字成语填空',
+      concept: '四字词语填空',
       levels: [
         {
-          id: 'c5-1', name: '成语精灵', concept: '补全成语',
+          id: 'c5-1', name: '成语精灵', concept: '补全词语',
           monsters: 3, hp: 2, time: 16, mode: 'idiom', boss: false,
-          names: ['成语精', '四字精', '典故精'],
+          names: ['成语精', '四字精', '词语精'],
           colors: ['#26A69A', '#00897B', '#80CBC4']
         }
       ]
     },
     {
       id: 'c6', subject: 'chinese', name: '句子工坊',
-      concept: '病句修改 · 关联词',
+      concept: '句子通顺 · 找出病句',
       levels: [
         {
           id: 'c6-1', name: '病句猎手', concept: '找出正确的句子',
@@ -311,98 +311,100 @@ window.GameData = (function () {
   /* ================= 语文题库：生字拼音 ================= */
 
   var PINYIN_POOL = {
+    /* 一单元：小蝌蚪找妈妈 / 我是什么 / 植物妈妈有办法 */
     1: [
-      { zi: '晨', pinyin: 'chén', distractor: 'chénɡ' },
-      { zi: '绒', pinyin: 'rónɡ', distractor: 'yónɡ' },
-      { zi: '扮', pinyin: 'bàn', distractor: 'fēn' },
-      { zi: '凤', pinyin: 'fènɡ', distractor: 'fēn' },
-      { zi: '洁', pinyin: 'jié', distractor: 'jí' },
-      { zi: '摔', pinyin: 'shuāi', distractor: 'suāi' },
-      { zi: '荒', pinyin: 'huānɡ', distractor: 'fānɡ' },
-      { zi: '笛', pinyin: 'dí', distractor: 'yóu' },
-      { zi: '裳', pinyin: 'shɑnɡ', distractor: 'chánɡ' },
-      { zi: '罚', pinyin: 'fá', distractor: 'fǎ' },
-      { zi: '假', pinyin: 'jià', distractor: 'jiǎ' },
-      { zi: '臂', pinyin: 'bì', distractor: 'bèi' },
-      { zi: '扬', pinyin: 'yánɡ', distractor: 'yán' },
-      { zi: '读', pinyin: 'dú', distractor: 'dǔ' },
-      { zi: '静', pinyin: 'jìnɡ', distractor: 'jìn' }
+      { zi: '塘', pinyin: 'táng', distractor: 'tāng' },
+      { zi: '脑', pinyin: 'nǎo', distractor: 'náo' },
+      { zi: '袋', pinyin: 'dài', distractor: 'dèi' },
+      { zi: '灰', pinyin: 'huī', distractor: 'fēi' },
+      { zi: '捕', pinyin: 'bǔ', distractor: 'pǔ' },
+      { zi: '迎', pinyin: 'yíng', distractor: 'yín' },
+      { zi: '宽', pinyin: 'kuān', distractor: 'kuǎn' },
+      { zi: '龟', pinyin: 'guī', distractor: 'jūn' },
+      { zi: '顶', pinyin: 'dǐng', distractor: 'dīng' },
+      { zi: '披', pinyin: 'pī', distractor: 'pēi' },
+      { zi: '鼓', pinyin: 'gǔ', distractor: 'gū' },
+      { zi: '晒', pinyin: 'shài', distractor: 'sài' },
+      { zi: '极', pinyin: 'jí', distractor: 'jī' },
+      { zi: '溪', pinyin: 'xī', distractor: 'qī' },
+      { zi: '洋', pinyin: 'yáng', distractor: 'yàng' }
     ],
+    /* 二单元：场景歌 / 树之歌 / 拍手歌 / 田家四季歌 */
     2: [
-      { zi: '铺', pinyin: 'pū', distractor: 'pù' },
-      { zi: '晶', pinyin: 'jīnɡ', distractor: 'jīn' },
-      { zi: '迟', pinyin: 'chí', distractor: 'cí' },
-      { zi: '洼', pinyin: 'wā', distractor: 'wà' },
-      { zi: '凌', pinyin: 'línɡ', distractor: 'lín' },
-      { zi: '增', pinyin: 'zēnɡ', distractor: 'zèn' },
-      { zi: '靴', pinyin: 'xuē', distractor: 'xiē' },
-      { zi: '钥', pinyin: 'yào', distractor: 'yuè' },
-      { zi: '匙', pinyin: 'shi', distractor: 'chí' },
-      { zi: '缤', pinyin: 'bīn', distractor: 'bīnɡ' },
-      { zi: '梅', pinyin: 'méi', distractor: 'měi' },
-      { zi: '残', pinyin: 'cán', distractor: 'chán' },
-      { zi: '犹', pinyin: 'yóu', distractor: 'yǒu' },
-      { zi: '傲', pinyin: 'ào', distractor: 'áo' },
-      { zi: '君', pinyin: 'jūn', distractor: 'jùn' }
+      { zi: '帆', pinyin: 'fān', distractor: 'fán' },
+      { zi: '艘', pinyin: 'sōu', distractor: 'shōu' },
+      { zi: '舰', pinyin: 'jiàn', distractor: 'jiān' },
+      { zi: '稻', pinyin: 'dào', distractor: 'dǎo' },
+      { zi: '翠', pinyin: 'cuì', distractor: 'chuì' },
+      { zi: '铜', pinyin: 'tóng', distractor: 'tōng' },
+      { zi: '号', pinyin: 'hào', distractor: 'hǎo' },
+      { zi: '梧', pinyin: 'wú', distractor: 'wǔ' },
+      { zi: '枫', pinyin: 'fēng', distractor: 'fōng' },
+      { zi: '松', pinyin: 'sōng', distractor: 'shōng' },
+      { zi: '柏', pinyin: 'bǎi', distractor: 'bái' },
+      { zi: '装', pinyin: 'zhuāng', distractor: 'zuāng' },
+      { zi: '耐', pinyin: 'nài', distractor: 'nǎn' },
+      { zi: '桂', pinyin: 'guì', distractor: 'guǐ' },
+      { zi: '银', pinyin: 'yín', distractor: 'yíng' }
     ],
+    /* 0：全册易错字综合 */
     0: [
-      { zi: '乘', pinyin: 'chénɡ', distractor: 'chèn' },
-      { zi: '爽', pinyin: 'shuǎnɡ', distractor: 'suǎnɡ' },
-      { zi: '棕', pinyin: 'zōnɡ', distractor: 'zhōnɡ' },
-      { zi: '腹', pinyin: 'fù', distractor: 'fǔ' },
-      { zi: '缩', pinyin: 'suō', distractor: 'sōu' },
-      { zi: '悲', pinyin: 'bēi', distractor: 'pēi' },
-      { zi: '宣', pinyin: 'xuān', distractor: 'xüān' },
-      { zi: '诱', pinyin: 'yòu', distractor: 'xiù' },
-      { zi: '舔', pinyin: 'tiǎn', distractor: 'tiān' },
-      { zi: '轴', pinyin: 'zhóu', distractor: 'yóu' },
-      { zi: '愁', pinyin: 'chóu', distractor: 'qiú' },
-      { zi: '盲', pinyin: 'mánɡ', distractor: 'mǎn' },
-      { zi: '蝇', pinyin: 'yínɡ', distractor: 'yǐn' },
-      { zi: '揭', pinyin: 'jiē', distractor: 'xiē' },
-      { zi: '获', pinyin: 'huò', distractor: 'hù' }
+      { zi: '曹', pinyin: 'cáo', distractor: 'zāo' },
+      { zi: '称', pinyin: 'chēng', distractor: 'chèn' },
+      { zi: '秤', pinyin: 'chèng', distractor: 'chēn' },
+      { zi: '玲', pinyin: 'líng', distractor: 'lín' },
+      { zi: '糟', pinyin: 'zāo', distractor: 'zhāo' },
+      { zi: '糕', pinyin: 'gāo', distractor: 'gào' },
+      { zi: '信', pinyin: 'xìn', distractor: 'xìng' },
+      { zi: '睡', pinyin: 'shuì', distractor: 'shuí' },
+      { zi: '察', pinyin: 'chá', distractor: 'cā' },
+      { zi: '葫', pinyin: 'hú', distractor: 'fú' },
+      { zi: '芦', pinyin: 'lú', distractor: 'lǔ' },
+      { zi: '藤', pinyin: 'téng', distractor: 'tén' },
+      { zi: '盯', pinyin: 'dīng', distractor: 'dìng' },
+      { zi: '邻', pinyin: 'lín', distractor: 'líng' },
+      { zi: '治', pinyin: 'zhì', distractor: 'zì' }
     ]
   };
 
   /* ================= 语文题库：近义词 ================= */
 
   var SYNONYM_POOL = [
-    { word: '鲜艳', answer: '艳丽', options: ['漂亮', '美丽', '艳丽', '新鲜'] },
-    { word: '打扮', answer: '装扮', options: ['打扮', '装扮', '服装', '饰演'] },
-    { word: '敬爱', answer: '尊敬', options: ['亲爱', '可爱', '尊敬', '爱护'] },
-    { word: '摇晃', answer: '摇摆', options: ['晃动', '摇摆', '摆动', '摇动'] },
-    { word: '飘扬', answer: '飘荡', options: ['飞扬', '飘荡', '漂浮', '漂流'] },
-    { word: '安静', answer: '宁静', options: ['冷静', '宁静', '静止', '平静'] },
-    { word: '热闹', answer: '喧闹', options: ['热烈', '喧闹', '吵闹', '热情'] },
-    { word: '好奇', answer: '奇怪', options: ['惊奇', '奇怪', '新鲜', '奇特'] },
-    { word: '招引', answer: '吸引', options: ['招手', '吸引', '引起', '引用'] },
-    { word: '粗壮', answer: '健壮', options: ['粗大', '健壮', '强壮', '壮实'] },
-    { word: '忽然', answer: '突然', options: ['果然', '突然', '居然', '竟然'] },
-    { word: '仔细', answer: '认真', options: ['详细', '认真', '细心', '用心'] },
-    { word: '凉爽', answer: '凉快', options: ['清凉', '凉快', '清爽', '寒冷'] },
-    { word: '叮咛', answer: '叮嘱', options: ['叮问', '叮嘱', '告诉', '吩咐'] },
-    { word: '辽阔', answer: '广阔', options: ['宽阔', '广阔', '广大', '宽大'] },
-    { word: '饱满', answer: '丰满', options: ['充满', '丰满', '饱和', '充足'] }
+    { word: '高兴', answer: '开心', options: ['开心', '难过', '生气', '伤心'] },
+    { word: '美丽', answer: '漂亮', options: ['漂亮', '丑陋', '难看', '奇怪'] },
+    { word: '仔细', answer: '认真', options: ['认真', '马虎', '粗心', '随便'] },
+    { word: '忽然', answer: '突然', options: ['突然', '慢慢', '渐渐', '经常'] },
+    { word: '连忙', answer: '急忙', options: ['急忙', '慢慢', '站着', '休息'] },
+    { word: '明白', answer: '清楚', options: ['清楚', '糊涂', '迷惑', '混乱'] },
+    { word: '经常', answer: '常常', options: ['常常', '偶尔', '很少', '从不'] },
+    { word: '保护', answer: '爱护', options: ['爱护', '破坏', '伤害', '扔掉'] },
+    { word: '温和', answer: '温柔', options: ['温柔', '暴躁', '严厉', '凶狠'] },
+    { word: '办法', answer: '方法', options: ['方法', '结果', '问题', '原因'] },
+    { word: '快乐', answer: '愉快', options: ['愉快', '悲伤', '忧愁', '烦恼'] },
+    { word: '惊奇', answer: '惊讶', options: ['惊讶', '平静', '无聊', '平常'] },
+    { word: '观察', answer: '察看', options: ['察看', '忽略', '闭眼', '忘记'] },
+    { word: '漂亮', answer: '好看', options: ['好看', '难看', '丑陋', '破旧'] },
+    { word: '干净', answer: '清洁', options: ['清洁', '肮脏', '杂乱', '破旧'] }
   ];
 
   /* ================= 语文题库：反义词 ================= */
 
   var ANTONYM_POOL = [
-    { word: '鲜艳', answer: '暗淡', options: ['漂亮', '暗淡', '灰暗', '黑暗'] },
-    { word: '热闹', answer: '安静', options: ['冷静', '安静', '平静', '静止'] },
-    { word: '粗壮', answer: '细小', options: ['细小', '瘦弱', '瘦小', '细微'] },
-    { word: '安静', answer: '喧闹', options: ['吵闹', '喧闹', '热闹', '喧哗'] },
-    { word: '古老', answer: '年轻', options: ['新鲜', '年轻', '新颖', '现代'] },
-    { word: '洁白', answer: '乌黑', options: ['漆黑', '乌黑', '黑暗', '黑夜'] },
-    { word: '湿润', answer: '干燥', options: ['干枯', '干燥', '干旱', '干巴'] },
-    { word: '清楚', answer: '模糊', options: ['糊涂', '模糊', '含糊', '朦胧'] },
-    { word: '仔细', answer: '马虎', options: ['粗心', '马虎', '大意', '疏忽'] },
-    { word: '凉爽', answer: '炎热', options: ['闷热', '炎热', '酷热', '火热'] },
-    { word: '辽阔', answer: '狭窄', options: ['狭小', '狭窄', '窄小', '狭隘'] },
-    { word: '饱满', answer: '干瘪', options: ['干瘪', '干枯', '干瘦', '瘦小'] },
-    { word: '温柔', answer: '粗暴', options: ['暴躁', '粗暴', '凶恶', '凶狠'] },
-    { word: '可爱', answer: '讨厌', options: ['可恨', '讨厌', '厌恶', '烦'] },
-    { word: '飞快', answer: '缓慢', options: ['慢慢', '缓慢', '迟缓', '迟钝'] }
+    { word: '高兴', answer: '难过', options: ['难过', '开心', '快乐', '欢喜'] },
+    { word: '快', answer: '慢', options: ['慢', '急', '迅速', '飞快'] },
+    { word: '前', answer: '后', options: ['后', '左', '上', '里'] },
+    { word: '里', answer: '外', options: ['外', '内', '中', '间'] },
+    { word: '高', answer: '低', options: ['低', '大', '长', '远'] },
+    { word: '长', answer: '短', options: ['短', '宽', '高', '久'] },
+    { word: '冷', answer: '热', options: ['热', '凉', '冰', '寒'] },
+    { word: '新', answer: '旧', options: ['旧', '好', '美', '净'] },
+    { word: '容易', answer: '困难', options: ['困难', '简单', '轻松', '方便'] },
+    { word: '危险', answer: '安全', options: ['安全', '害怕', '紧张', '小心'] },
+    { word: '保护', answer: '破坏', options: ['破坏', '爱护', '关心', '帮助'] },
+    { word: '温和', answer: '暴躁', options: ['暴躁', '温柔', '和气', '亲切'] },
+    { word: '亮', answer: '暗', options: ['暗', '明', '白', '光'] },
+    { word: '粗心', answer: '细心', options: ['细心', '马虎', '大意', '随便'] },
+    { word: '美丽', answer: '丑陋', options: ['丑陋', '漂亮', '好看', '美妙'] }
   ];
 
   /* ================= 语文题库：多音字 ================= */
@@ -410,124 +412,114 @@ window.GameData = (function () {
   var DUOYIN_POOL = [
     { zi: '假', word: '放假', answer: 'jià', options: ['jiǎ', 'jià', 'jiā', 'jie'] },
     { zi: '假', word: '真假', answer: 'jiǎ', options: ['jiǎ', 'jià', 'jiā', 'jie'] },
-    { zi: '铺', word: '铺路', answer: 'pū', options: ['pù', 'pū', 'pú', 'fǔ'] },
-    { zi: '铺', word: '店铺', answer: 'pù', options: ['pù', 'pū', 'pú', 'fǔ'] },
-    { zi: '盛', word: '盛开', answer: 'shèng', options: ['chéng', 'shèng', 'chén', 'shèn'] },
-    { zi: '盛', word: '盛饭', answer: 'chéng', options: ['chéng', 'shèng', 'chén', 'shèn'] },
-    { zi: '好', word: '爱好', answer: 'hào', options: ['hǎo', 'hào', 'hāo', 'he'] },
-    { zi: '好', word: '好人', answer: 'hǎo', options: ['hǎo', 'hào', 'hāo', 'he'] },
-    { zi: '相', word: '相信', answer: 'xiāng', options: ['xiàng', 'xiāng', 'xián', 'xāng'] },
-    { zi: '相', word: '相片', answer: 'xiàng', options: ['xiàng', 'xiāng', 'xián', 'xāng'] },
-    { zi: '行', word: '行走', answer: 'xíng', options: ['háng', 'xíng', 'xín', 'hán'] },
-    { zi: '行', word: '银行', answer: 'háng', options: ['háng', 'xíng', 'xín', 'hán'] },
+    { zi: '长', word: '长大', answer: 'zhǎng', options: ['cháng', 'zhǎng', 'zhāng', 'chāng'] },
+    { zi: '长', word: '长江', answer: 'cháng', options: ['cháng', 'zhǎng', 'zhāng', 'chāng'] },
+    { zi: '兴', word: '高兴', answer: 'xìng', options: ['xīng', 'xìng', 'xìn', 'xíng'] },
+    { zi: '兴', word: '兴奋', answer: 'xīng', options: ['xīng', 'xìng', 'xìn', 'xíng'] },
+    { zi: '觉', word: '觉得', answer: 'jué', options: ['jué', 'jiào', 'juè', 'jiǎo'] },
+    { zi: '觉', word: '睡觉', answer: 'jiào', options: ['jué', 'jiào', 'juè', 'jiǎo'] },
+    { zi: '种', word: '种树', answer: 'zhòng', options: ['zhǒng', 'zhòng', 'zhōng', 'chóng'] },
+    { zi: '种', word: '种子', answer: 'zhǒng', options: ['zhǒng', 'zhòng', 'zhōng', 'chóng'] },
+    { zi: '干', word: '干净', answer: 'gān', options: ['gān', 'gàn', 'gǎn', 'gěn'] },
+    { zi: '干', word: '干活', answer: 'gàn', options: ['gān', 'gàn', 'gǎn', 'gěn'] },
+    { zi: '教', word: '教书', answer: 'jiāo', options: ['jiào', 'jiāo', 'jiǎo', 'jiǒo'] },
+    { zi: '教', word: '教师', answer: 'jiào', options: ['jiào', 'jiāo', 'jiǎo', 'jiǒo'] },
+    { zi: '背', word: '背包', answer: 'bēi', options: ['bèi', 'bēi', 'bēng', 'bēn'] },
+    { zi: '背', word: '后背', answer: 'bèi', options: ['bèi', 'bēi', 'bēng', 'bēn'] },
+    { zi: '数', word: '数一数', answer: 'shǔ', options: ['shǔ', 'shù', 'shú', 'shū'] },
+    { zi: '数', word: '数学', answer: 'shù', options: ['shǔ', 'shù', 'shú', 'shū'] },
+    { zi: '空', word: '天空', answer: 'kōng', options: ['kōng', 'kòng', 'kǒng', 'gōng'] },
+    { zi: '空', word: '有空', answer: 'kòng', options: ['kōng', 'kòng', 'kǒng', 'gōng'] },
+    { zi: '发', word: '发现', answer: 'fā', options: ['fā', 'fà', 'fá', 'fǎ'] },
+    { zi: '发', word: '头发', answer: 'fà', options: ['fā', 'fà', 'fá', 'fǎ'] },
+    { zi: '好', word: '好人', answer: 'hǎo', options: ['hǎo', 'hào', 'hāo', 'hè'] },
+    { zi: '好', word: '爱好', answer: 'hào', options: ['hǎo', 'hào', 'hāo', 'hè'] },
     { zi: '乐', word: '快乐', answer: 'lè', options: ['yuè', 'lè', 'yào', 'le'] },
     { zi: '乐', word: '音乐', answer: 'yuè', options: ['yuè', 'lè', 'yào', 'le'] },
-    { zi: '教', word: '教书', answer: 'jiāo', options: ['jiào', 'jiāo', 'jiǎo', 'jiǒo'] },
-    { zi: '教', word: '教师', answer: 'jiào', options: ['jiào', 'jiāo', 'jiǎo', 'jiǒo'] }
+    { zi: '只', word: '一只鸟', answer: 'zhī', options: ['zhī', 'zhǐ', 'zhí', 'zhì'] },
+    { zi: '只', word: '只有', answer: 'zhǐ', options: ['zhī', 'zhǐ', 'zhí', 'zhì'] },
+    { zi: '中', word: '中间', answer: 'zhōng', options: ['zhōng', 'zhòng', 'zhǒng', 'chōng'] },
+    { zi: '中', word: '打中', answer: 'zhòng', options: ['zhōng', 'zhòng', 'zhǒng', 'chōng'] }
   ];
 
-  /* ================= 语文题库：古诗 ================= */
+  /* ================= 语文题库：古诗（二年级上册） ================= */
 
   var POEM_POOL = [
     {
-      title: '所见', author: '袁枚',
-      lines: ['牧童骑黄牛', '歌声振林樾', '意欲捕鸣蝉', '忽然闭口立'],
+      title: '登鹳雀楼', author: '王之涣',
+      lines: ['白日依山尽', '黄河入海流', '欲穷千里目', '更上一层楼'],
       mode: 'next'
     },
     {
-      title: '山行', author: '杜牧',
-      lines: ['远上寒山石径斜', '白云生处有人家', '停车坐爱枫林晚', '霜叶红于二月花'],
+      title: '望庐山瀑布', author: '李白',
+      lines: ['日照香炉生紫烟', '遥看瀑布挂前川', '飞流直下三千尺', '疑是银河落九天'],
       mode: 'next'
     },
     {
-      title: '赠刘景文', author: '苏轼',
-      lines: ['荷尽已无擎雨盖', '菊残犹有傲霜枝', '一年好景君须记', '最是橙黄橘绿时'],
+      title: '夜宿山寺', author: '李白',
+      lines: ['危楼高百尺', '手可摘星辰', '不敢高声语', '恐惊天上人'],
       mode: 'next'
     },
     {
-      title: '夜书所见', author: '叶绍翁',
-      lines: ['萧萧梧叶送寒声', '江上秋风动客情', '知有儿童挑促织', '夜深篱落一灯明'],
+      title: '敕勒歌', author: '北朝民歌',
+      lines: ['敕勒川，阴山下', '天似穹庐，笼盖四野', '天苍苍，野茫茫', '风吹草低见牛羊'],
       mode: 'next'
     },
     {
-      title: '望天门山', author: '李白',
-      lines: ['天门中断楚江开', '碧水东流至此回', '两岸青山相对出', '孤帆一片日边来'],
+      title: '江雪', author: '柳宗元',
+      lines: ['千山鸟飞绝', '万径人踪灭', '孤舟蓑笠翁', '独钓寒江雪'],
       mode: 'next'
     },
     {
-      title: '饮湖上初晴后雨', author: '苏轼',
-      lines: ['水光潋滟晴方好', '山色空蒙雨亦奇', '欲把西湖比西子', '淡妆浓抹总相宜'],
-      mode: 'next'
-    },
-    {
-      title: '望洞庭', author: '刘禹锡',
-      lines: ['湖光秋月两相和', '潭面无风镜未磨', '遥望洞庭山水翠', '白银盘里一青螺'],
-      mode: 'next'
-    },
-    {
-      title: '早发白帝城', author: '李白',
-      lines: ['朝辞白帝彩云间', '千里江陵一日还', '两岸猿声啼不住', '轻舟已过万重山'],
-      mode: 'next'
-    },
-    {
-      title: '采莲曲', author: '王昌龄',
-      lines: ['荷叶罗裙一色裁', '芙蓉向脸两边开', '乱入池中看不见', '闻歌始觉有人来'],
+      title: '梅花', author: '王安石',
+      lines: ['墙角数枝梅', '凌寒独自开', '遥知不是雪', '为有暗香来'],
       mode: 'next'
     }
   ];
 
-  /* ================= 语文题库：成语 ================= */
+  /* ================= 语文题库：四字词语 ================= */
 
   var IDIOM_POOL = [
-    { idiom: '春华秋实', blank: 2, answer: '秋', options: ['冬', '秋', '夏', '春'] },
-    { idiom: '一叶知秋', blank: 1, answer: '知', options: ['知', '之', '只', '直'] },
-    { idiom: '五谷丰登', blank: 1, answer: '五', options: ['三', '五', '四', '六'] },
-    { idiom: '果实累累', blank: 2, answer: '累', options: ['雷', '泪', '累', '类'] },
-    { idiom: '金桂飘香', blank: 2, answer: '飘', options: ['漂', '飘', '票', '瓢'] },
-    { idiom: '层林尽染', blank: 2, answer: '尽', options: ['近', '进', '尽', '紧'] },
-    { idiom: '天高云淡', blank: 2, answer: '云', options: ['雨', '云', '雪', '雾'] },
-    { idiom: '秋高气爽', blank: 2, answer: '气', options: ['汽', '气', '乞', '七'] },
-    { idiom: '五彩缤纷', blank: 2, answer: '缤', options: ['宾', '滨', '缤', '兵'] },
-    { idiom: '争先恐后', blank: 2, answer: '先', options: ['显', '鲜', '先', '仙'] },
-    { idiom: '七上八下', blank: 2, answer: '八', options: ['八', '发', '巴', '拔'] },
-    { idiom: '四面八方', blank: 2, answer: '八', options: ['八', '巴', '把', '爸'] }
+    { idiom: '五光十色', blank: 2, answer: '十', options: ['十', '石', '时', '是'] },
+    { idiom: '四面八方', blank: 2, answer: '八', options: ['八', '巴', '把', '发'] },
+    { idiom: '三心二意', blank: 2, answer: '二', options: ['二', '两', '再', '三'] },
+    { idiom: '七上八下', blank: 2, answer: '八', options: ['八', '巴', '把', '发'] },
+    { idiom: '十全十美', blank: 2, answer: '十', options: ['十', '石', '时', '是'] },
+    { idiom: '一心一意', blank: 2, answer: '一', options: ['一', '以', '已', '衣'] },
+    { idiom: '五颜六色', blank: 2, answer: '六', options: ['六', '陆', '流', '溜'] },
+    { idiom: '千军万马', blank: 2, answer: '万', options: ['万', '方', '晚', '湾'] },
+    { idiom: '无影无踪', blank: 2, answer: '无', options: ['无', '吴', '五', '午'] },
+    { idiom: '大摇大摆', blank: 2, answer: '大', options: ['大', '太', '天', '犬'] },
+    { idiom: '东张西望', blank: 2, answer: '西', options: ['西', '洗', '喜', '细'] },
+    { idiom: '摇头摆尾', blank: 2, answer: '摆', options: ['摆', '拜', '百', '败'] }
   ];
 
   /* ================= 语文题库：病句/正确句 ================= */
 
   var SENTENCE_POOL = [
-    { question: '下列句子正确的是', answer: '我们要爱惜粮食。', options: [
-      '我们要爱惜粮食。', '我们要爱惜粮食的。', '我们爱惜要粮食。', '我们爱惜粮食要。'
+    { question: '下列句子正确的是', answer: '我每天七点起床。', options: [
+      '我每天七点起床。', '我起床每天七点。', '每天我七点起床的。', '七点我每天起床。'
     ]},
-    { question: '下列句子正确的是', answer: '他每天都坚持锻炼身体。', options: [
-      '他每天都坚持锻炼身体。', '他每天都坚持锻炼的身体。', '他每天坚持都锻炼身体。', '他每天锻炼身体都坚持。'
+    { question: '下列句子有语病的是', answer: '我们班的同学都非常很高兴。', options: [
+      '我们班的同学都非常高兴。', '我们班的同学都非常很高兴。', '我们班的同学都很高兴。', '我们班的同学特别高兴。'
     ]},
-    { question: '下列句子有语病的是', answer: '他的看法是对的，正确的。', options: [
-      '他的看法是对的，正确的。', '他的看法是正确的。', '他的看法很对。', '我同意他的看法。'
+    { question: '下列句子正确的是', answer: '弯弯的月亮像小船。', options: [
+      '弯弯的月亮像小船。', '弯弯的小船像月亮。', '月亮弯弯的像小船小。', '弯的弯月亮像小船。'
     ]},
-    { question: '下列句子正确的是', answer: '秋天的北京是个美丽的地方。', options: [
-      '秋天的北京是个美丽的地方。', '北京的秋天是个美丽的地方。', '秋天北京是美丽的一个地方。', '北京秋天美丽是个地方。'
+    { question: '下列句子正确的是', answer: '一只小鸟在树上唱歌。', options: [
+      '一只小鸟在树上唱歌。', '一只小鸟唱歌在树上。', '小鸟一只在树上唱歌。', '在树上一只小鸟唱歌。'
     ]},
-    { question: '下列句子正确的是', answer: '我断定这件事是他做的。', options: [
-      '我断定这件事是他做的。', '我大概断定这件事是他做的。', '我断定大概这件事是他做的。', '我断定这件事大概是他做的。'
+    { question: '下列句子有语病的是', answer: '他戴着一顶帽子，一件外套。', options: [
+      '他戴着一顶帽子，穿着一件外套。', '他戴着一顶帽子，一件外套。', '他穿着一件外套。', '他戴着一顶帽子。'
     ]},
-    { question: '下列句子有语病的是', answer: '他穿着一件蓝色的上衣，一顶红色的帽子。', options: [
-      '他穿着一件蓝色的上衣，戴着一顶红色的帽子。',
-      '他穿着一件蓝色的上衣，一顶红色的帽子。',
-      '他戴着一顶红色的帽子。',
-      '他穿了一件蓝色的上衣。'
+    { question: '下列句子正确的是', answer: '妈妈给我做了一顿香喷喷的饭。', options: [
+      '妈妈给我做了一顿香喷喷的饭。', '妈妈给我做了一顿香喷喷。', '妈妈做给我一顿饭香喷喷的。', '妈妈给我一顿香喷喷的做饭。'
     ]},
-    { question: '下列句子正确的是', answer: '通过这次活动，我学到了很多。', options: [
-      '通过这次活动，我学到了很多。',
-      '通过这次活动，使我学到了很多。',
-      '通过使这次活动我学到了很多。',
-      '这次活动通过使我学到了很多。'
+    { question: '下列句子正确的是', answer: '下课了，同学们在操场上做游戏。', options: [
+      '下课了，同学们在操场上做游戏。', '下课了，同学们做游戏在操场上。', '同学们下课了在做游戏操场上。', '在操场上同学们下课了做游戏。'
     ]},
-    { question: '下列句子正确的是', answer: '我们要养成认真写字的好习惯。', options: [
-      '我们要养成认真写字的好习惯。',
-      '我们要认真写字的好习惯养成。',
-      '我们要养成认真写字。',
-      '我们要认真写字养成好习惯。'
+    { question: '下列句子有语病的是', answer: '我的书包是新买的漂亮。', options: [
+      '我的书包是新买的，很漂亮。', '我的书包是新买的漂亮。', '我的新书包很漂亮。', '我买了一个漂亮的新书包。'
     ]}
   ];
 

@@ -239,6 +239,23 @@
     return arr;
   }
 
+  /* 中文数字与乘法口诀（二年级上册用） */
+
+  var CN_DIGITS = '零一二三四五六七八九';
+
+  function cnNum(n) {
+    if (n < 10) return CN_DIGITS.charAt(n);
+    if (n < 20) return '十' + (n % 10 ? CN_DIGITS.charAt(n % 10) : '');
+    return CN_DIGITS.charAt(Math.floor(n / 10)) + '十' + (n % 10 ? CN_DIGITS.charAt(n % 10) : '');
+  }
+
+  function kouJue(a, b) {
+    var s = a < b ? a : b;
+    var l = a < b ? b : a;
+    var p = a * b;
+    return cnNum(s) + cnNum(l) + (p < 10 ? '得' : '') + cnNum(p);
+  }
+
   function starHTML(n) {
     var out = '';
     for (var i = 1; i <= 3; i++) {
@@ -291,10 +308,10 @@
 
     if (mode === 'time_conv') q = genTimeConv();
     else if (mode === 'time_calc') q = genTimeCalc();
-    else if (mode === 'add_easy') q = genAdd(10, 99);
-    else if (mode === 'add_hard') q = genAdd(100, 990, 10);
-    else if (mode === 'sub_easy') q = genSub(10, 99);
-    else if (mode === 'sub_hard') q = genSub(100, 990, 10);
+    else if (mode === 'add_easy') q = genAddNoCarry();
+    else if (mode === 'add_hard') q = genAddCarry();
+    else if (mode === 'sub_easy') q = genSubNoCarry();
+    else if (mode === 'sub_hard') q = genSubBorrow();
     else if (mode === 'length_unit') q = genLengthUnit();
     else if (mode === 'km_unit') q = genKmUnit();
     else if (mode === 'ton_unit') q = genTonUnit();
@@ -344,25 +361,24 @@
     return shuffle(out);
   }
 
-  /* ---- 数学：时间 ---- */
+  /* ---- 数学：认识时间（二上：时、分） ---- */
 
   function genTimeConv() {
     var types = [
       function () {
-        var m = rand(1, 9);
-        return { text: m + ' 分 = ? 秒', answer: m * 60, kind: 'num', unit: '秒' };
-      },
-      function () {
-        var h = rand(1, 5);
+        var h = rand(1, 6);
         return { text: h + ' 时 = ? 分', answer: h * 60, kind: 'num', unit: '分' };
       },
       function () {
-        var s = rand(2, 9) * 60;
-        return { text: s + ' 秒 = ? 分', answer: s / 60, kind: 'num', unit: '分' };
+        var m = rand(2, 5) * 60;
+        return { text: m + ' 分 = ? 时', answer: m / 60, kind: 'num', unit: '时' };
       },
       function () {
-        var m = rand(2, 9) * 10;
-        return { text: m + ' 分 = ? 时', answer: m / 60, kind: 'num', unit: '时' };
+        var n = rand(1, 11);
+        return { text: '分针指向 ' + n + '，是 ? 分', answer: n * 5, kind: 'num', unit: '分' };
+      },
+      function () {
+        return { text: '半时 = ? 分', answer: 30, kind: 'num', unit: '分' };
       }
     ];
     return types[rand(0, types.length - 1)]();
@@ -371,24 +387,29 @@
   function genTimeCalc() {
     var types = [
       function () {
-        var a = rand(10, 40);
-        var b = rand(10, 40);
-        return { text: a + '分 + ' + b + '分 = ?分', answer: a + b, kind: 'num', unit: '分' };
+        var a = rand(5, 45);
+        var b = rand(5, 55 - a);
+        return { text: a + ' 分 + ' + b + ' 分 = ? 分', answer: a + b, kind: 'num', unit: '分' };
       },
       function () {
-        var a = rand(40, 59);
-        var b = rand(10, 30);
-        return { text: a + '分 - ' + b + '分 = ?分', answer: a - b, kind: 'num', unit: '分' };
+        var a = rand(25, 59);
+        var b = rand(5, 20);
+        return { text: a + ' 分 - ' + b + ' 分 = ? 分', answer: a - b, kind: 'num', unit: '分' };
       },
       function () {
-        var h1 = rand(1, 8);
+        var h = rand(1, 5);
+        var m = rand(5, 55);
+        return { text: h + ' 时 ' + m + ' 分 = ? 分', answer: h * 60 + m, kind: 'num', unit: '分' };
+      },
+      function () {
+        var h = rand(1, 8);
         var m1 = rand(10, 50);
         var m2 = rand(5, 40);
-        var total = h1 * 60 + m1 + m2;
+        var total = h * 60 + m1 + m2;
         var hh = Math.floor(total / 60);
         var mm = total % 60;
         return {
-          text: h1 + '时' + m1 + '分 + ' + m2 + '分 = ?',
+          text: h + '时' + m1 + '分 再过 ' + m2 + '分 是 ?',
           answer: hh + '时' + mm + '分',
           kind: 'text',
           options: shuffle([
@@ -403,52 +424,117 @@
     return types[rand(0, types.length - 1)]();
   }
 
-  /* ---- 数学：加法 ---- */
+  /* ---- 数学：100以内的加法（二上） ---- */
 
-  function genAdd(lo, hi, step) {
-    step = step || 1;
-    var a = Math.ceil(rand(lo, hi) / step) * step;
-    var b = Math.ceil(rand(lo, hi) / step) * step;
-    if (a > b) { var t = a; a = b; b = t; }
-    return { text: a + ' + ' + b + ' =', answer: a + b, kind: 'num' };
+  function genAddNoCarry() {
+    var t = rand(0, 2);
+    if (t === 0) {
+      var ones = rand(1, 8);
+      var a1 = rand(1, 8) * 10 + ones;
+      var b1 = rand(1, 9 - ones);
+      return { text: a1 + ' + ' + b1 + ' =', answer: a1 + b1, kind: 'num' };
+    }
+    if (t === 1) {
+      var a2 = rand(1, 4) * 10;
+      var b2 = rand(1, 5) * 10;
+      return { text: a2 + ' + ' + b2 + ' =', answer: a2 + b2, kind: 'num' };
+    }
+    var a3 = rand(1, 7) * 10 + rand(1, 9);
+    var b3 = rand(1, Math.floor((99 - a3) / 10)) * 10;
+    return { text: a3 + ' + ' + b3 + ' =', answer: a3 + b3, kind: 'num' };
   }
 
-  /* ---- 数学：减法 ---- */
-
-  function genSub(lo, hi, step) {
-    step = step || 1;
-    var a = Math.ceil(rand(lo, hi) / step) * step;
-    var b = Math.ceil(rand(lo, a) / step) * step;
-    return { text: a + ' - ' + b + ' =', answer: a - b, kind: 'num' };
+  function genAddCarry() {
+    var t = rand(0, 1);
+    if (t === 0) {
+      var ones = rand(2, 9);
+      var a = rand(1, 7) * 10 + ones;
+      var b = rand(10 - ones, 9);
+      return { text: a + ' + ' + b + ' =', answer: a + b, kind: 'num' };
+    }
+    for (var i = 0; i < 60; i++) {
+      var x = rand(11, 88);
+      var y = rand(11, 99 - x);
+      if (y >= 11 && (x % 10) + (y % 10) >= 10) {
+        return { text: x + ' + ' + y + ' =', answer: x + y, kind: 'num' };
+      }
+    }
+    return { text: '38 + 24 =', answer: 62, kind: 'num' };
   }
 
-  /* ---- 数学：长度单位 ---- */
+  /* ---- 数学：100以内的减法（二上） ---- */
+
+  function genSubNoCarry() {
+    var t = rand(0, 2);
+    if (t === 0) {
+      var ones = rand(2, 9);
+      var a1 = rand(1, 8) * 10 + ones;
+      var b1 = rand(1, ones);
+      return { text: a1 + ' - ' + b1 + ' =', answer: a1 - b1, kind: 'num' };
+    }
+    if (t === 1) {
+      var tens = rand(3, 9);
+      var a2 = tens * 10 + rand(0, 9);
+      var b2 = rand(1, tens - 1) * 10;
+      return { text: a2 + ' - ' + b2 + ' =', answer: a2 - b2, kind: 'num' };
+    }
+    var tens3 = rand(4, 9);
+    var a3 = tens3 * 10;
+    var b3 = rand(1, tens3 - 1) * 10;
+    return { text: a3 + ' - ' + b3 + ' =', answer: a3 - b3, kind: 'num' };
+  }
+
+  function genSubBorrow() {
+    var t = rand(0, 1);
+    if (t === 0) {
+      var b1 = rand(2, 9);
+      var a1 = rand(2, 9) * 10 + rand(0, b1 - 1);
+      return { text: a1 + ' - ' + b1 + ' =', answer: a1 - b1, kind: 'num' };
+    }
+    for (var i = 0; i < 60; i++) {
+      var x = rand(21, 99);
+      var y = rand(11, x - 1);
+      if ((x % 10) < (y % 10)) {
+        return { text: x + ' - ' + y + ' =', answer: x - y, kind: 'num' };
+      }
+    }
+    return { text: '62 - 38 =', answer: 24, kind: 'num' };
+  }
+
+  /* ---- 数学：长度单位（二上：厘米和米） ---- */
 
   function genLengthUnit() {
     var types = [
       function () {
+        var n = rand(2, 9);
+        return { text: n + ' 米 = ? 厘米', answer: n * 100, kind: 'num', unit: '厘米' };
+      },
+      function () {
+        var n = rand(2, 9) * 100;
+        return { text: n + ' 厘米 = ? 米', answer: n / 100, kind: 'num', unit: '米' };
+      },
+      function () {
+        var a = rand(3, 9);
+        var b = rand(2, 9);
+        return {
+          text: '一条线段长 ' + a + ' 厘米，另一条长 ' + b + ' 厘米，一共长 ? 厘米',
+          answer: a + b, kind: 'num', unit: '厘米'
+        };
+      },
+      function () {
+        var a = rand(5, 9);
+        var b = rand(1, a - 1);
+        return {
+          text: '绳子长 ' + a + ' 厘米，用去 ' + b + ' 厘米，还剩 ? 厘米',
+          answer: a - b, kind: 'num', unit: '厘米'
+        };
+      },
+      function () {
+        return { text: '1 米 = ? 厘米', answer: 100, kind: 'num', unit: '厘米' };
+      },
+      function () {
         var c = rand(2, 9);
-        return { text: c + ' 厘米 = ? 毫米', answer: c * 10, kind: 'num', unit: '毫米' };
-      },
-      function () {
-        var d = rand(1, 9);
-        return { text: d + ' 分米 = ? 厘米', answer: d * 10, kind: 'num', unit: '厘米' };
-      },
-      function () {
-        var m = rand(2, 9);
-        return { text: m + ' 米 = ? 分米', answer: m * 10, kind: 'num', unit: '分米' };
-      },
-      function () {
-        var m = rand(2, 9);
-        return { text: m + ' 米 = ? 厘米', answer: m * 100, kind: 'num', unit: '厘米' };
-      },
-      function () {
-        var mm = rand(2, 9) * 10;
-        return { text: mm + ' 毫米 = ? 厘米', answer: mm / 10, kind: 'num', unit: '厘米' };
-      },
-      function () {
-        var cm = rand(2, 9) * 10;
-        return { text: cm + ' 厘米 = ? 分米', answer: cm / 10, kind: 'num', unit: '分米' };
+        return { text: '用尺子从刻度 0 量到刻度 ' + c + '，长 ? 厘米', answer: c, kind: 'num', unit: '厘米' };
       }
     ];
     return types[rand(0, types.length - 1)]();
@@ -457,22 +543,24 @@
   function genKmUnit() {
     var types = [
       function () {
-        var k = rand(2, 9);
-        return { text: k + ' 千米 = ? 米', answer: k * 1000, kind: 'num', unit: '米' };
+        return { text: '1 米 = ? 厘米', answer: 100, kind: 'num', unit: '厘米' };
       },
       function () {
-        var m = rand(2, 9) * 1000;
-        return { text: m + ' 米 = ? 千米', answer: m / 1000, kind: 'num', unit: '千米' };
+        var n = rand(2, 9);
+        return { text: n + ' 米 = ? 厘米', answer: n * 100, kind: 'num', unit: '厘米' };
       },
       function () {
-        var a = rand(2, 6);
-        var b = rand(2, 6);
-        return { text: a + '千米 + ' + b + '千米 = ?千米', answer: a + b, kind: 'num', unit: '千米' };
+        var n = rand(2, 9) * 100;
+        return { text: n + ' 厘米 = ? 米', answer: n / 100, kind: 'num', unit: '米' };
       },
       function () {
-        var a = rand(3, 9);
-        var b = rand(1, a - 1);
-        return { text: a + '千米 - ' + b + '千米 = ?千米', answer: a - b, kind: 'num', unit: '千米' };
+        return { text: '一张桌子长约 1 米，合 ? 厘米', answer: 100, kind: 'num', unit: '厘米' };
+      },
+      function () {
+        return {
+          text: '一条跳绳长 3 米，比 250 厘米（ ）', answer: '长',
+          options: ['长', '短', '一样长', '不能比'], kind: 'text'
+        };
       }
     ];
     return types[rand(0, types.length - 1)]();
@@ -481,171 +569,208 @@
   function genTonUnit() {
     var types = [
       function () {
-        var t = rand(2, 9);
-        return { text: t + ' 吨 = ? 千克', answer: t * 1000, kind: 'num', unit: '千克' };
+        var n = rand(2, 9);
+        return { text: n + ' 米 = ? 厘米', answer: n * 100, kind: 'num', unit: '厘米' };
       },
       function () {
-        var k = rand(2, 9) * 1000;
-        return { text: k + ' 千克 = ? 吨', answer: k / 1000, kind: 'num', unit: '吨' };
+        var n = rand(2, 6) * 100;
+        return { text: n + ' 厘米 = ? 米', answer: n / 100, kind: 'num', unit: '米' };
       },
       function () {
-        var a = rand(2, 5);
-        var b = rand(2, 5);
-        return { text: a + '吨 + ' + b + '吨 = ?吨', answer: a + b, kind: 'num', unit: '吨' };
+        var a = rand(2, 7);
+        var b = rand(2, 7);
+        return { text: a + ' 米 + ' + b + ' 米 = ? 米', answer: a + b, kind: 'num', unit: '米' };
       },
       function () {
-        var a = rand(4, 9);
-        var b = rand(1, a - 1);
-        return { text: a + '吨 - ' + b + '吨 = ?吨', answer: a - b, kind: 'num', unit: '吨' };
+        return {
+          text: '1 米 ○ 100 厘米，○ 里应填', answer: '=',
+          options: ['=', '>', '<', '不能比较'], kind: 'text'
+        };
+      },
+      function () {
+        return {
+          text: '2 米 ○ 180 厘米，○ 里应填', answer: '>',
+          options: ['>', '<', '=', '不能比较'], kind: 'text'
+        };
       }
     ];
     return types[rand(0, types.length - 1)]();
   }
 
-  /* ---- 数学：倍的认识 ---- */
+  /* ---- 数学：表内乘法（一）2~6的口诀 ---- */
 
   function genTimesDiv() {
-    var a = rand(2, 9);
+    var t = rand(0, 2);
+    var a = rand(2, 4);
     var b = rand(2, 9);
-    var big = a * b;
-    return { text: big + ' 是 ' + a + ' 的几倍？', answer: b, kind: 'num' };
+    if (t === 0) {
+      return { text: a + ' × ' + b + ' =', answer: a * b, kind: 'num' };
+    }
+    if (t === 1) {
+      return { text: '( ) × ' + a + ' = ' + a * b, answer: b, kind: 'num' };
+    }
+    var ans = kouJue(a, b);
+    var opts = [ans];
+    var pool = [kouJue(2, 3), kouJue(3, 4), kouJue(4, 5), kouJue(5, 6),
+      kouJue(2, 8), kouJue(6, 6), kouJue(3, 7), kouJue(4, 8), kouJue(2, 9)];
+    shuffle(pool);
+    for (var i = 0; i < pool.length && opts.length < 4; i++) {
+      if (opts.indexOf(pool[i]) === -1) opts.push(pool[i]);
+    }
+    return { text: a + ' × ' + b + ' 用哪句口诀？', answer: ans, options: shuffle(opts), kind: 'text' };
   }
 
   function genTimesMul() {
-    var a = rand(2, 9);
-    var b = rand(3, 9);
-    return { text: a + ' 的 ' + b + ' 倍是多少？', answer: a * b, kind: 'num' };
+    var t = rand(0, 2);
+    var a = rand(5, 6);
+    var b = rand(2, 9);
+    if (t === 0) {
+      return { text: a + ' × ' + b + ' =', answer: a * b, kind: 'num' };
+    }
+    if (t === 1) {
+      return { text: '( ) × ' + a + ' = ' + a * b, answer: b, kind: 'num' };
+    }
+    return { text: '每盘有 ' + a + ' 个苹果，' + b + ' 盘一共有 ? 个', answer: a * b, kind: 'num', unit: '个' };
   }
 
-  /* ---- 数学：多位数乘一位数 ---- */
+  /* ---- 数学：表内乘法（二）7~9的口诀 ---- */
 
   function genMulTen() {
-    var a = rand(2, 9) * 10;
+    var t = rand(0, 2);
     var b = rand(2, 9);
-    return { text: a + ' × ' + b + ' =', answer: a * b, kind: 'num' };
+    if (t === 0) {
+      return { text: '7 × ' + b + ' =', answer: 7 * b, kind: 'num' };
+    }
+    if (t === 1) {
+      return { text: '7 × ( ) = ' + 7 * b, answer: b, kind: 'num' };
+    }
+    var w = rand(2, 6);
+    return { text: '一个星期有 7 天，' + w + ' 个星期一共有 ? 天', answer: 7 * w, kind: 'num', unit: '天' };
   }
 
   function genMulNoCarry() {
-    var tens = rand(1, 3);
-    var ones = rand(1, 4);
-    var a = tens * 10 + ones;
-    var b = rand(2, 4 - (ones > 2 ? 1 : 0));
-    if (b < 2) b = 2;
-    return { text: a + ' × ' + b + ' =', answer: a * b, kind: 'num' };
+    var t = rand(0, 2);
+    var b = rand(2, 9);
+    if (t === 0) {
+      return { text: '8 × ' + b + ' =', answer: 8 * b, kind: 'num' };
+    }
+    if (t === 1) {
+      return { text: '8 × ( ) = ' + 8 * b, answer: b, kind: 'num' };
+    }
+    var n = rand(2, 5);
+    return { text: '一只螃蟹有 8 条腿，' + n + ' 只螃蟹一共有 ? 条腿', answer: 8 * n, kind: 'num', unit: '条' };
   }
 
   function genMulCarry() {
-    var a = rand(12, 99);
+    var t = rand(0, 2);
     var b = rand(2, 9);
-    return { text: a + ' × ' + b + ' =', answer: a * b, kind: 'num' };
+    if (t === 0) {
+      return { text: '9 × ' + b + ' =', answer: 9 * b, kind: 'num' };
+    }
+    if (t === 1) {
+      return { text: '9 × ( ) = ' + 9 * b, answer: b, kind: 'num' };
+    }
+    var m = rand(2, 6);
+    return { text: '每盒有 9 块糖，' + m + ' 盒一共有 ? 块', answer: 9 * m, kind: 'num', unit: '块' };
   }
 
   function genMulBoss() {
-    var types = [
-      function () {
-        var a = rand(12, 99);
-        var b = rand(2, 9);
-        return { text: a + ' × ' + b + ' =', answer: a * b, kind: 'num' };
-      },
-      function () {
-        var a = rand(100, 999);
-        var b = rand(2, 9);
-        return { text: a + ' × ' + b + ' =', answer: a * b, kind: 'num' };
-      },
-      function () {
-        var a = rand(2, 9);
-        var b = rand(3, 9);
-        return { text: a + ' 的 ' + b + ' 倍是多少？', answer: a * b, kind: 'num' };
-      }
-    ];
-    return types[rand(0, types.length - 1)]();
+    var t = rand(0, 2);
+    var a = rand(7, 9);
+    var b = rand(2, 9);
+    if (t === 0) {
+      return { text: a + ' × ' + b + ' =', answer: a * b, kind: 'num' };
+    }
+    if (t === 1) {
+      return { text: '( ) × ' + a + ' = ' + a * b, answer: b, kind: 'num' };
+    }
+    var e = rand(7, 9);
+    var f = rand(2, 5);
+    var g = rand(2, 9);
+    return { text: e + ' × ' + f + ' + ' + g + ' =', answer: e * f + g, kind: 'num' };
   }
 
-  /* ---- 数学：长方形和正方形 ---- */
+  /* ---- 数学：角的初步认识 ---- */
 
   function genShapeKnow() {
     var types = [
-      { text: '长方形有几条边？', answer: '4条', options: ['3条', '4条', '5条', '6条'], kind: 'text' },
-      { text: '正方形的四条边有什么特点？', answer: '都相等', options: ['都不相等', '都相等', '对边相等', '相邻相等'], kind: 'text' },
-      { text: '长方形有几个直角？', answer: '4个', options: ['2个', '3个', '4个', '6个'], kind: 'text' },
-      { text: '正方形是特殊的？', answer: '长方形', options: ['三角形', '长方形', '圆形', '梯形'], kind: 'text' },
-      { text: '下面哪个图形是四边形？', answer: '正方形', options: ['三角形', '正方形', '圆形', '五边形'], kind: 'text' },
-      { text: '长方形的对边有什么特点？', answer: '相等', options: ['不相等', '相等', '垂直', '相交'], kind: 'text' }
+      { text: '一个角有几个顶点？', answer: '1个', options: ['1个', '2个', '3个', '4个'], kind: 'text' },
+      { text: '一个角有几条边？', answer: '2条', options: ['1条', '2条', '3条', '4条'], kind: 'text' },
+      {
+        text: '把角的两条边画得更长一些，这个角会（ ）',
+        answer: '不变', options: ['不变', '变大', '变小', '消失'], kind: 'text'
+      },
+      { text: '数学书的封面有几个角？', answer: '4个', options: ['1个', '2个', '3个', '4个'], kind: 'text' },
+      {
+        text: '角的大小和什么有关？',
+        answer: '两条边张开的大小', options: ['两条边张开的大小', '边的长短', '顶点的位置', '纸的颜色'], kind: 'text'
+      },
+      { text: '用一副三角尺可以画出（ ）', answer: '直角', options: ['直角', '圆角', '弯角', '球角'], kind: 'text' }
     ];
     return Object.assign({}, types[rand(0, types.length - 1)]);
   }
 
   function genPerimeter() {
     var types = [
+      { text: '比直角小的角叫什么角？', answer: '锐角', options: ['锐角', '钝角', '直角', '平角'], kind: 'text' },
+      { text: '比直角大的角叫什么角？', answer: '钝角', options: ['钝角', '锐角', '直角', '平角'], kind: 'text' },
+      { text: '三角尺上最大的那个角是（ ）', answer: '直角', options: ['直角', '锐角', '钝角', '圆角'], kind: 'text' },
+      { text: '长方形的四个角都是（ ）', answer: '直角', options: ['直角', '锐角', '钝角', '平角'], kind: 'text' },
+      { text: '一个三角形里最多有几个直角？', answer: '1个', options: ['1个', '2个', '3个', '4个'], kind: 'text' },
+      { text: '钟面上 3 时整，时针和分针组成的角是（ ）', answer: '直角', options: ['直角', '锐角', '钝角', '平角'], kind: 'text' },
+      { text: '一张正方形纸有几个直角？', answer: '4个', options: ['1个', '2个', '3个', '4个'], kind: 'text' }
+    ];
+    return Object.assign({}, types[rand(0, types.length - 1)]);
+  }
+
+  /* ---- 数学：数学广角 · 搭配（一） ---- */
+
+  function genFracHalf() {
+    var types = [
       function () {
-        var l = rand(3, 8);
-        var w = rand(2, l - 1);
-        return { text: '长' + l + '宽' + w + '的长方形周长是？', answer: (l + w) * 2, kind: 'num', unit: '' };
+        return { text: '用 1、2、3 组成没有重复数字的两位数，一共能组成几个？', answer: 6, kind: 'num', unit: '个' };
       },
       function () {
-        var s = rand(3, 9);
-        return { text: '边长' + s + '的正方形周长是？', answer: s * 4, kind: 'num', unit: '' };
+        return { text: '用 4、7 组成没有重复数字的两位数，一共能组成几个？', answer: 2, kind: 'num', unit: '个' };
       },
       function () {
-        var p = rand(3, 8) * 4;
-        return { text: '正方形周长是' + p + '，边长是多少？', answer: p / 4, kind: 'num', unit: '' };
+        return {
+          text: '用 5、6、7、8 中的两个数字组成没有重复数字的两位数，一共能组成几个？',
+          answer: 12, kind: 'num', unit: '个'
+        };
       },
       function () {
-        var l = rand(4, 9);
-        var w = rand(2, l - 2);
-        var p = (l + w) * 2;
-        return { text: '长方形周长' + p + '，长' + l + '，宽是多少？', answer: w, kind: 'num', unit: '' };
+        return {
+          text: '用 2、5 组成的两位数中，最大的一个是（ ）',
+          answer: 52, options: [52, 25, 55, 22], kind: 'num'
+        };
       }
     ];
     return types[rand(0, types.length - 1)]();
   }
 
-  /* ---- 数学：分数 ---- */
-
-  function genFracHalf() {
-    var types = [
-      function () {
-        return { text: '把一个蛋糕平均分成 2 份，每份是几分之一？', answer: '二分之一',
-          options: ['二分之一', '三分之一', '四分之一', '一分之二'], kind: 'text' };
-      },
-      function () {
-        return { text: '把一张纸平均分成 4 份，每份是？', answer: '四分之一',
-          options: ['二分之一', '三分之一', '四分之一', '八分之一'], kind: 'text' };
-      },
-      function () {
-        return { text: '1/3 读作？', answer: '三分之一',
-          options: ['一分之三', '三分之一', '三分一', '一三'], kind: 'text' };
-      },
-      function () {
-        return { text: '下面哪个分数最大？', answer: '1/2',
-          options: ['1/2', '1/3', '1/4', '1/5'], kind: 'text' };
-      },
-      function () {
-        return { text: '把 1 米平均分成 8 段，每段长？', answer: '1/8 米',
-          options: ['1/8 米', '1/4 米', '1/2 米', '8 米'], kind: 'text' };
-      }
-    ];
-    return Object.assign({}, types[rand(0, types.length - 1)]);
-  }
-
   function genFracCalc() {
     var types = [
       function () {
-        var d = rand(3, 8);
-        var a = rand(1, d - 1);
-        var b = rand(1, d - a);
-        return { text: a + '/' + d + ' + ' + b + '/' + d + ' =', answer: (a + b) + '/' + d, kind: 'frac' };
+        return {
+          text: '有 3 件上衣和 2 条裤子，一件上衣配一条裤子，一共有几种搭配？',
+          answer: 6, kind: 'num', unit: '种'
+        };
       },
       function () {
-        var d = rand(4, 9);
-        var a = rand(2, d - 1);
-        var b = rand(1, a - 1);
-        return { text: a + '/' + d + ' - ' + b + '/' + d + ' =', answer: (a - b) + '/' + d, kind: 'frac' };
+        return {
+          text: '有 2 顶帽子和 3 条围巾，一顶帽子配一条围巾，一共有几种搭配？',
+          answer: 6, kind: 'num', unit: '种'
+        };
       },
       function () {
-        var d = rand(3, 8);
-        var a = rand(1, d - 1);
-        return { text: '1 - ' + a + '/' + d + ' =', answer: (d - a) + '/' + d, kind: 'frac' };
+        return { text: '从 3 种水果中选 2 种，一共有几种选法？', answer: 3, kind: 'num', unit: '种' };
+      },
+      function () {
+        return { text: '小明有 4 件上衣和 3 条裤子，一共有几种穿法？', answer: 12, kind: 'num', unit: '种' };
+      },
+      function () {
+        return { text: '三个人见面，每两人握一次手，一共要握几次？', answer: 3, kind: 'num', unit: '次' };
       }
     ];
     return types[rand(0, types.length - 1)]();
@@ -654,31 +779,25 @@
   function genFracBoss() {
     var types = [
       function () {
-        var d = rand(4, 9);
-        var a = rand(2, d - 2);
-        var b = rand(1, d - a - 1);
-        return { text: a + '/' + d + ' + ' + b + '/' + d + ' =', answer: (a + b) + '/' + d, kind: 'frac' };
+        return { text: '用 6、8、9 组成没有重复数字的两位数，一共能组成几个？', answer: 6, kind: 'num', unit: '个' };
       },
       function () {
-        return { text: '比较大小：3/4 ○ 1/2', answer: '>',
-          options: ['>', '<', '=', '无法比较'], kind: 'text' };
+        return { text: '有 3 件上衣和 3 条裤子，一共有几种搭配？', answer: 9, kind: 'num', unit: '种' };
       },
       function () {
-        return { text: '比较大小：1/3 ○ 1/5', answer: '>',
-          options: ['>', '<', '=', '无法比较'], kind: 'text' };
+        return { text: '用 1、2、3 可以组成多少个不同的两位数？', answer: 6, kind: 'num', unit: '个' };
       },
       function () {
-        return { text: '2/8 + 5/8 =', answer: '7/8',
-          options: ['7/8', '3/8', '1/2', '1'], kind: 'frac' };
+        return { text: '四个小朋友两两握手，一共要握几次？', answer: 6, kind: 'num', unit: '次' };
       },
       function () {
-        var d = rand(3, 8);
-        var a = rand(1, d - 1);
-        return { text: a + '/' + d + ' + ' + (d - a) + '/' + d + ' =', answer: '1',
-          options: ['1', '0', '1/2', '2'], kind: 'frac' };
+        return {
+          text: '用 3、5 组成的两位数从小到大排，第二个数是（ ）',
+          answer: 53, options: [53, 35, 33, 55], kind: 'num'
+        };
       }
     ];
-    return Object.assign({}, types[rand(0, types.length - 1)]);
+    return types[rand(0, types.length - 1)]();
   }
 
   /* ---- 语文：拼音 ---- */
